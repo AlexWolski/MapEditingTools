@@ -1,0 +1,22 @@
+body {
+    background-color: lightblue;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 8px;
+    cursor: pointer;
+}
+
+.disabled {
+    cursor:not-allowed;
+    opacity:0.3;
+}
