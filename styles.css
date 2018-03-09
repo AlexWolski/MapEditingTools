@@ -35,7 +35,20 @@ textarea {
 }
 
 .wrapper {
-  display: flex;
-  align-items: center;
-  align-content: center;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.inputBox {
+    width: 30%;
+    margin-left: 10%;
+    margin-right:0%;
+}
+
+.outputBox {
+    width: 30%;
+    margin-left: 0%;
+    margin-right: 10%
 }
