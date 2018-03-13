@@ -16,15 +16,6 @@ button {
     cursor: pointer;
 }
 
-.disabled {
-    cursor:not-allowed;
-    opacity:0.3;
-}
-
-.small {
-    font-size: 16px;
-}
-
 textarea {
     white-space: nowrap;    /* Chrome */
     word-wrap: break-word;  /* IE */
@@ -34,11 +25,26 @@ textarea {
     width: 100%;
 }
 
+img {
+    display: block;
+    margin:0 auto;
+}
+
+.disabled {
+    cursor:not-allowed;
+    opacity:0.3;
+}
+
+.small {
+    font-size: 16px;
+}
+
 .wrapper {
     display: flex;
     align-items: center;
     align-content: center;
-    flex-wrap: wrap;
+    align-items: flex-start
+    width: 100%;
 }
 
 .inputBox {
