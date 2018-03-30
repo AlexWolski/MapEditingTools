@@ -17,8 +17,8 @@ button {
 }
 
 textarea {
-    white-space: nowrap;    /* Chrome */
-    word-wrap: break-word;  /* IE */
+    white-space: nowrap;
+    word-wrap: break-word;
     resize: none;
     white-space: pre;
     height: 10em;
@@ -30,6 +30,10 @@ img {
     margin:0 auto;
 }
 
+input {
+    width: 100px;
+}
+
 .disabled {
     cursor:not-allowed;
     opacity:0.3;
@@ -39,18 +43,17 @@ img {
     display: flex;
     align-items: center;
     align-content: center;
-    align-items: flex-start
     width: 100%;
 }
 
 .inputBox {
-    width: 30%;
-    margin-left: 10%;
+    width: 37.5%;
+    margin-left: 2.5%;
     margin-right:0%;
 }
 
 .outputBox {
-    width: 30%;
+    width: 37.5%;
     margin-left: 0%;
-    margin-right: 10%
+    margin-right: 2.5%
 }
