@@ -11,7 +11,7 @@ class object
     {
       this._texture = elementList[2];
       this._length = elementList[3];
-      this._hight = elementList[4];
+      this._height = elementList[4];
       this._width = elementList[5];
       this._color = elementList[6];
       this._red = elementList[7];
@@ -40,7 +40,7 @@ class object
     else if((this._type == "racing" || (this._type == "misc" && this._shape == "barrier")) && elementList.length >= 12)
     {
       this._length = elementList[2];
-      this._hight = elementList[3];
+      this._height = elementList[3];
       this._width = elementList[4];
       this._Xpos = elementList[5];
       this._Ypos = elementList[6];
@@ -54,7 +54,7 @@ class object
     {
       this._name = elementList[2];
       this._length = elementList[3];
-      this._hight = elementList[4];
+      this._height = elementList[4];
       this._width = elementList[5];
       this._Xpos = elementList[6];
       this._Ypos = elementList[7];
@@ -101,7 +101,7 @@ object.prototype.toString = function()
   
   if(this._type == "custom" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn"))
   {
-    objectScript = objectScript.concat(",", [this._texture, this._length, this._hight, this._width, this._color, this._red, this._green, this._blue, this._tileX, this._tileY, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._texture, this._length, this._height, this._width, this._color, this._red, this._green, this._blue, this._tileX, this._tileY, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
   }
   else if(this._type == "base")
   {
@@ -109,11 +109,11 @@ object.prototype.toString = function()
   }
   else if(this._type == "racing" || (this._type == "misc" && this._shape == "barrier"))
   {
-    objectScript = objectScript.concat(",", [this._length, this._hight, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._length, this._height, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
   }
   else if(this._type == "misc")
   {
-    objectScript = objectScript.concat(",", [this._name, this._length, this._hight, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._name, this._length, this._height, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
   }
   else if(this._type == "spawnpoint")
   {
@@ -172,7 +172,7 @@ class customMap
   
   Rotate(rotation, pivot)
   {
-    if(arguments.length = 1)
+    if(pivot == null)
     {
       pivot = new Point();
       
@@ -209,6 +209,41 @@ class customMap
         this.objects[i]._Xpos = objectPosition.X;
         this.objects[i]._Ypos = objectPosition.Y;
         this.objects[i]._Zpos = objectPosition.Z;
+      }
+    }
+  }
+  
+  Scale(Scale, center)
+  {
+    if(center == null)
+    {
+      center = new Point();
+      
+      for(var i = 0; i < this.objects.length; i++)
+      {
+        if(this.objects[i]._type != "comment")
+        {
+          center.X += parseFloat(this.objects[i]._Xpos);
+          center.Y += parseFloat(this.objects[i]._Ypos);
+          center.Z += parseFloat(this.objects[i]._Zpos);
+        }
+      }
+      
+      center.X /= this.objects.length;
+      center.Y /= this.objects.length;
+      center.Z /= this.objects.length;
+    }
+    
+    for(var i = 0; i < this.objects.length; i++)
+    {
+      if(this.objects[i]._type != "comment")
+      {
+        this.objects[i]._length *= Scale;
+        this.objects[i]._height *= Scale;
+        this.objects[i]._width *= Scale;
+        this.objects[i]._Xpos = ((this.objects[i]._Xpos - center.X) * Scale) + center.X;
+        this.objects[i]._Ypos = ((this.objects[i]._Ypos - center.Y) * Scale) + center.Y;
+        this.objects[i]._Zpos = ((this.objects[i]._Zpos - center.Z) * Scale) + center.Z;
       }
     }
   }

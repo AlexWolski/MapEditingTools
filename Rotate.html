@@ -23,6 +23,10 @@
 		</header>
 
 		<div class="wrapper" style="margin-top:50px;">
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Rotation:
+			</div>
+
 			<div id="Average" style="margin-top:50px; font-size:25px;">
 				<div class="wrapper">
 					<div style="width:95px; margin-left:20px;">X Angle:</div>
@@ -38,27 +42,31 @@
 				</div>
 			</div>
 
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Roatate Around:
+			</div>
+
 			<div style="margin-top:50px; font-size:25px;">
-				<div>
-					<input type="radio" name="choice" id="AverageRadioButton" checked="checked" onclick="hideAverage('Point')"> Average
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="AverageRadioButton" checked="checked" style="width:20px;" onclick="hideAverage('Point')"> Average
 				</div>
-				<div>
-					<input type="radio" name="choice" id="PointRadioButton" onclick="showAverage('Point')"> Pivot
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="PointRadioButton" style="width:20px;" onclick="showAverage('Point')"> Point
 				</div>
 			</div>
 
 			<div id="Point" style="margin-top:50px; font-size:25px; display:none">
 				<div class="wrapper">
-					<div style="width:85px; margin-left:50px;">Pivot X:</div>
-					<input id="pivotX" value="0" maxlength="100" style="margin-left:20px;" onkeypress="return isNumberKey(event)">
+					<div style="width:85px; margin-left:50px;">X Pos:</div>
+					<input id="pivotX" value="0" maxlength="100" style="margin-left:15px;" onkeypress="return isNumberKey(event)">
 				</div>
 				<div class="wrapper">
-					<div style="width:85px; margin-left:50px;">Pivot Y:</div>
-					<input id="pivotY" value="0" maxlength="100" style="margin-left:20px;">
+					<div style="width:85px; margin-left:50px;">Y Pos:</div>
+					<input id="pivotY" value="0" maxlength="100" style="margin-left:15px;">
 				</div>
 				<div class="wrapper">
-					<div style="width:85px; margin-left:50px;">Pivot Z:</div>
-					<input id="pivotZ" value="0" maxlength="100" style="margin-left:20px;">
+					<div style="width:85px; margin-left:50px;">Z Pos:</div>
+					<input id="pivotZ" value="0" maxlength="100" style="margin-left:15px;">
 				</div>
 			</div>
 		</div>

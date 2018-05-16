@@ -6,9 +6,14 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<title>Scale</title>
 	<script src="Clipboard.js"></script>
+	<script src="InputBox.js"></script>
+	<script src="RadioButton.js"></script>
+	<script src="Point.js"></script>
+	<script src="Object.js"></script>
+	<script src="Functions.js"></script>
 	</head>
 
-	<body style="min-width: 850px; max-width: 1500px; margin:0 auto;">
+	<body style="min-width: 850px; margin:0 auto;" onload="fixEdgeBug('AverageRadioButton', 'PointRadioButton'); checkPivot('PointRadioButton', 'Point');">
 		<header style="text-align:center; font-size:60px;">
 			<div style="min-width:850px;">
 				<button class="button" style="position:absolute; left:5px;" onclick="window.location.href='index.html'">Home</button>
@@ -16,11 +21,49 @@
 			</div>
 		</header>
 
+		<div class="wrapper" style="margin-top:50px;">
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Scale:
+			</div>
+
+			<div style="margin-top:50px;"">
+				<input id="Scale" value="1" maxlength="100" style="margin-left:15px;" onkeypress="return isNumberKey(event)">
+			</div>
+
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Scale Around:
+			</div>
+
+			<div style="margin-top:50px; font-size:25px;">
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="AverageRadioButton" checked="checked" style="width:20px;" onclick="hideAverage('Point')"> Average
+				</div>
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="PointRadioButton" style="width:20px;" onclick="showAverage('Point')"> Point
+				</div>
+			</div>
+
+			<div id="Point" style="margin-top:50px; font-size:25px; display:none">
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">X Pos:</div>
+					<input id="centerX" value="0" maxlength="100" style="margin-left:15px;" onkeypress="return isNumberKey(event)">
+				</div>
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">Y Pos:</div>
+					<input id="centerY" value="0" maxlength="100" style="margin-left:15px;">
+				</div>
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">Z Pos:</div>
+					<input id="centerZ" value="0" maxlength="100" style="margin-left:15px;">
+				</div>
+			</div>
+		</div>
+
 		<div>
 			<div class="wrapper" style="margin-top:50px;">
 				<div class="inputBox">
 					<div style="text-align:center">
-						<textarea id="Input" placeholder="Map to Scale" wrap="off" style="width:95%;"></textarea>
+						<textarea id="Input" placeholder="Map to Scale" wrap="off" style="width:95%; height:300px"></textarea>
 					</div>
 					<div align="center">
 						<button id="inputCopy" onclick="copy('Input')">Copy</button>
@@ -28,11 +71,11 @@
 					</div>
 				</div>
 
-				<div style="width:20%"><button style="width:80%; margin-left:10%; margin-right:10%; padding:15px 0px; font-size:32px;">Scale</button></div>
+				<div style="width:20%"><button style="width:80%; margin-left:10%; margin-right:10%; padding:15px 0px; font-size:32px;" onclick="scaleMap('Input', 'Output', 'PointRadioButton', 'Scale', 'centerX', 'centerY', 'centerZ')">Scale</button></div>
 
 				<div class="outputBox">
 					<div style="text-align:center">
-						<textarea id="Output" placeholder="Scaled Map" wrap="off" style="width:95%;"></textarea>
+						<textarea id="Output" placeholder="scaled Map" wrap="off" style="width:95%; height:300px"></textarea>
 					</div>
 					<div align="center">
 						<button id="outputCopy" onclick="copy('Output')">Copy</button>

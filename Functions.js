@@ -1,7 +1,7 @@
 function translateMap(input, output, translateX, translateY, translateZ)
 {
-  var displacement = new Point(Number(getTextboxNumber(translateX)), Number(getTextboxNumber(translateY)), Number(getTextboxNumber(translateZ)));
   var translatedMap = new customMap(document.getElementById(input).value);
+  var displacement = new Point(Number(getTextboxNumber(translateX)), Number(getTextboxNumber(translateY)), Number(getTextboxNumber(translateZ)));
   
   translatedMap.Translate(displacement);
   
@@ -24,4 +24,21 @@ function rotateMap(input, output, pivotButton, rotateX, rotateY, rotateZ, pivotX
   }
   
   document.getElementById(output).value = rotatedMap.toString();
+}
+
+function scaleMap(input, output, pivotButton, Scale, centerX, centerY, centerZ)
+{
+  var scaledMap = new customMap(document.getElementById(input).value);
+  
+  if(document.getElementById(pivotButton).checked == true)
+  {
+    var center = new Point(Number(getTextboxNumber(centerX)), Number(getTextboxNumber(centerY)), Number(getTextboxNumber(centerZ)));
+    scaledMap.Scale(Number(getTextboxNumber(Scale)), center);
+  }
+  else
+  {
+    scaledMap.Scale(Number(getTextboxNumber(Scale)));
+  }
+  
+  document.getElementById(output).value = scaledMap.toString();
 }
