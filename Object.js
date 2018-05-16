@@ -157,15 +157,59 @@ class customMap
     }
   }
   
-  Translate(Xdisplacement, Ydisplacement, Zdisplacement)
+  Translate(displacement)
   {
     for(var i = 0; i < this.objects.length; i++)
     {
-      var test = Number(this.objects[i]._Xpos) + Number(Xdisplacement);
+      if(this.objects[i]._type != "comment")
+      {
+        this.objects[i]._Xpos += displacement.X;
+        this.objects[i]._Ypos += displacement.Y;
+        this.objects[i]._Zpos += displacement.Z;
+      }
+    }
+  }
+  
+  Rotate(rotation, pivot)
+  {
+    if(arguments.length = 1)
+    {
+      pivot = new Point();
       
-      this.objects[i]._Xpos = Number(this.objects[i]._Xpos) + Number(Xdisplacement);
-      this.objects[i]._Ypos = Number(this.objects[i]._Ypos) + Number(Ydisplacement);
-      this.objects[i]._Zpos = Number(this.objects[i]._Zpos) + Number(Ydisplacement);
+      for(var i = 0; i < this.objects.length; i++)
+      {
+        if(this.objects[i]._type != "comment")
+        {
+          pivot.X += parseFloat(this.objects[i]._Xpos);
+          pivot.Y += parseFloat(this.objects[i]._Ypos);
+          pivot.Z += parseFloat(this.objects[i]._Zpos);
+        }
+      }
+      
+      pivot.X /= this.objects.length;
+      pivot.Y /= this.objects.length;
+      pivot.Z /= this.objects.length;
+    }
+    
+    for(var i = 0; i < this.objects.length; i++)
+    {
+      if(this.objects[i]._type != "comment")
+      {
+        var objectRotation = new quaternion(this.objects[i]._Wangle, this.objects[i]._Xangle, this.objects[i]._Yangle, this.objects[i]._Zangle);
+        objectRotation = multiplyQuat(rotation, objectRotation);
+        
+        this.objects[i]._Wangle = objectRotation.W;
+        this.objects[i]._Xangle = objectRotation.X;
+        this.objects[i]._Yangle = objectRotation.Y;
+        this.objects[i]._Zangle = objectRotation.Z;
+        
+        var objectPosition = new Point(this.objects[i]._Xpos, this.objects[i]._Ypos, this.objects[i]._Zpos);
+        objectPosition.Rotate(pivot, rotation);
+        
+        this.objects[i]._Xpos = objectPosition.X;
+        this.objects[i]._Ypos = objectPosition.Y;
+        this.objects[i]._Zpos = objectPosition.Z;
+      }
     }
   }
 }
