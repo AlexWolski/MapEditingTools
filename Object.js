@@ -195,7 +195,7 @@ class customMap
     {
       if(this.objects[i]._type != "comment")
       {
-        var objectRotation = new quaternion(this.objects[i]._Wangle, this.objects[i]._Xangle, this.objects[i]._Yangle, this.objects[i]._Zangle);
+        var objectRotation = new quaternion(parseFloat(this.objects[i]._Wangle), parseFloat(this.objects[i]._Xangle), parseFloat(this.objects[i]._Yangle), parseFloat(this.objects[i]._Zangle));
         objectRotation = multiplyQuat(rotation, objectRotation);
         
         this.objects[i]._Wangle = objectRotation.W;

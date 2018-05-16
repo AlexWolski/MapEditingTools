@@ -52,9 +52,9 @@ class Point
     var vector3 = Cross(quatImaginary, tempPosition);
     vector3.scalarMultiply(2*rotation.W);
     
-    this.X = vector1.X + vector2.X + vector3.X - pivot.X;
-    this.Y = vector1.Y + vector2.Y + vector3.Y - pivot.Y;
-    this.Z = vector1.Z + vector2.Z + vector3.Z - pivot.Z;
+    this.X = vector1.X + vector2.X + vector3.X + pivot.X;
+    this.Y = vector1.Y + vector2.Y + vector3.Y + pivot.Y;
+    this.Z = vector1.Z + vector2.Z + vector3.Z + pivot.Z;
   }
 }
 

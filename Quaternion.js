@@ -33,17 +33,28 @@ class quaternion
         break;
       
       case 4:
-        this.W = arguments[0];
-        this.X = arguments[1];
-        this.Y = arguments[2];
-        this.Z = arguments[3];
         
-        var magnitude = Math.sqrt(Math.pow(this.W, 2) + Math.pow(this.X, 2) + Math.pow(this.Y, 2) + Math.pow(this.Z, 2));
-        
-        this.W = this.W/magnitude;
-        this.X = this.X/magnitude;
-        this.Y = this.Y/magnitude;
-        this.Z = this.Z/magnitude;
+        if(arguments[0] == 0 && arguments[1] == 0 && arguments[2] == 0 && arguments[3] == 0)
+        {
+          this.W = 1;
+          this.X = 0;
+          this.Y = 0;
+          this.Z = 0;
+        }
+        else
+        {
+          this.W = arguments[0];
+          this.X = arguments[1];
+          this.Y = arguments[2];
+          this.Z = arguments[3];
+          
+          var magnitude = Math.sqrt(Math.pow(this.W, 2) + Math.pow(this.X, 2) + Math.pow(this.Y, 2) + Math.pow(this.Z, 2));
+          
+          this.W = this.W/magnitude;
+          this.X = this.X/magnitude;
+          this.Y = this.Y/magnitude;
+          this.Z = this.Z/magnitude;
+        }
         
         break;
     }
