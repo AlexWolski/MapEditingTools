@@ -163,9 +163,9 @@ class customMap
     {
       if(this.objects[i]._type != "comment")
       {
-        this.objects[i]._Xpos += displacement.X;
-        this.objects[i]._Ypos += displacement.Y;
-        this.objects[i]._Zpos += displacement.Z;
+        this.objects[i]._Xpos = Number(this.objects[i]._Xpos) + displacement.X;
+        this.objects[i]._Ypos = Number(this.objects[i]._Ypos) + displacement.Y;
+        this.objects[i]._Zpos = Number(this.objects[i]._Zpos) + displacement.Z;
       }
     }
   }
