@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="styles.css">
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<title>Rotate</title>
-	<script src="Clipboard.js"></script>
-	<script src="InputBox.js"></script>
-	<script src="RadioButton.js"></script>
-	<script src="Quaternion.js"></script>
-	<script src="Point.js"></script>
-	<script src="Object.js"></script>
-	<script src="Functions.js"></script>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<title>Rotate</title>
+		<script src="Clipboard.js"></script>
+		<script src="InputBox.js"></script>
+		<script src="RadioButton.js"></script>
+		<script src="Quaternion.js"></script>
+		<script src="Point.js"></script>
+		<script src="Object.js"></script>
+		<script src="Functions.js"></script>
 	</head>
 
 	<body style="min-width: 850px; margin:0 auto;" onload="fixEdgeBug('AverageRadioButton', 'PointRadioButton'); checkPivot('PointRadioButton', 'Point');">
@@ -34,11 +34,11 @@
 				</div>
 				<div class="wrapper">
 					<div style="width:95px; margin-left:20px;">Y Angle:</div>
-					<input id="rotateY" value="0" maxlength="100" style="margin-left:20px;">
+					<input id="rotateY" value="0" maxlength="100" style="margin-left:20px;" onkeypress="return isNumberKey(event)">
 				</div>
 				<div class="wrapper">
 					<div style="width:95px; margin-left:20px;">Z Angle:</div>
-					<input id="rotateZ" value="0" maxlength="100" style="margin-left:20px;">
+					<input id="rotateZ" value="0" maxlength="100" style="margin-left:20px;" onkeypress="return isNumberKey(event)">
 				</div>
 			</div>
 
