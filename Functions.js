@@ -41,4 +41,26 @@ function scaleMap(input, output, pivotButton, Scale, centerX, centerY, centerZ)
   }
   
   document.getElementById(output).value = scaledMap.toString();
+
+}
+
+
+function mirrorMap(input, output, pivotButton, mirrorX, mirrorY, mirrorZ, pivotX, pivotY, pivotZ)
+{
+  var mirroredMap = new customMap(document.getElementById(input).value);
+  //var rotation = new quaternion(-Number(getTextboxNumber(rotateX)), Number(getTextboxNumber(rotateY)), -Number(getTextboxNumber(rotateZ)));
+  //var rotation = new quaternion(-Number(69), Number(69), -Number(69));
+  var axes = [getCheckboxState(mirrorX), getCheckboxState(mirrorY), getCheckboxState(mirrorZ)];
+
+  if(document.getElementById(pivotButton).checked == true)
+  {
+    var pivot = new Point(Number(getTextboxNumber(pivotX)), Number(getTextboxNumber(pivotY)), Number(getTextboxNumber(pivotZ)));
+    mirroredMap.Mirror(axes, pivot);
+  }
+  else
+  {
+    mirroredMap.Mirror(axes);
+  }
+  
+  document.getElementById(output).value = mirroredMap.toString();
 }

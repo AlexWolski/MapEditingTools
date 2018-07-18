@@ -7,7 +7,7 @@ class object
     this._type = elementList[0];
     this._shape = elementList[1];
     
-    if((this._type == "custom" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && elementList.length >= 19)
+    if((this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && elementList.length >= 19)
     {
       this._texture = elementList[2];
       this._length = parseFloat(elementList[3]);
@@ -93,35 +93,71 @@ class object
       delete this._shape;
     }
   }
+
+  //class functions \o/
+  isObject() {
+    return this._type != "comment";
+  }
+
+  setSize(length, height, width) {
+    this._length = length;
+    this._height = height;
+    this._width = width;
+  }
+
+  setQuat(quaternion) {
+    this._Xangle = quaternion.X;
+    this._Yangle = quaternion.Y;
+    this._Zangle = quaternion.Z;
+    this._Wangle = quaternion.W;
+  }
+
+  setQuat(x, y, z, w) {
+    this._Xangle = x;
+    this._Yangle = y;
+    this._Zangle = z;
+    this._Wangle = w;
+  }
+
+
+
+
+
+
+
 }
 
 object.prototype.toString = function()
 {
   var objectScript = this._type + "," + this._shape;
   
-  if(this._type == "custom" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn"))
+  //I used this regex to change them all cause i'm lazy, i'd recommend altering it if you are undoing this/making changes
+  //  find: (this._length|this._height|this._width|this._color|this._red|this._green|this._blue|this._tileX|this._tileY|this._Xpos|this._Ypos|this._Zpos|this._Xangle|this._Yangle|this._Zangle|this._Wangle)
+  //  replace: parseFloat($1.toFixed(7))
+  
+  if(this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn"))
   {
-    objectScript = objectScript.concat(",", [this._texture, this._length, this._height, this._width, this._color, this._red, this._green, this._blue, this._tileX, this._tileY, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._texture, parseFloat(this._length.toFixed(7)), parseFloat(this._height.toFixed(7)), parseFloat(this._width.toFixed(7)), parseFloat(this._color.toFixed(7)), parseFloat(this._red.toFixed(7)), parseFloat(this._green.toFixed(7)), parseFloat(this._blue.toFixed(7)), parseFloat(this._tileX.toFixed(7)), parseFloat(this._tileY.toFixed(7)), parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else if(this._type == "base")
   {
-    objectScript = objectScript.concat(",", [this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else if(this._type == "racing" || (this._type == "misc" && this._shape == "barrier"))
   {
-    objectScript = objectScript.concat(",", [this._length, this._height, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [parseFloat(this._length.toFixed(7)), parseFloat(this._height.toFixed(7)), parseFloat(this._width.toFixed(7)), parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else if(this._type == "misc")
   {
-    objectScript = objectScript.concat(",", [this._name, this._length, this._height, this._width, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._name, parseFloat(this._length.toFixed(7)), parseFloat(this._height.toFixed(7)), parseFloat(this._width.toFixed(7)), parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else if(this._type == "spawnpoint")
   {
-    objectScript = objectScript.concat(",", [this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else if(this._type == "photon")
   {
-    objectScript = objectScript.concat(",", [this._spawnTime, this._endlessMode, this._Xpos, this._Ypos, this._Zpos, this._Xangle, this._Yangle, this._Zangle, this._Wangle].join(","));
+    objectScript = objectScript.concat(",", [this._spawnTime, this._endlessMode, parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
   else
   {
@@ -135,6 +171,10 @@ object.prototype.toString = function()
   
   return objectScript;
 }
+
+
+
+
 
 class customMap
 {
@@ -247,7 +287,113 @@ class customMap
       }
     }
   }
+
+  Mirror(axes, pivot)
+  {
+    var mirrorX = axes[0];
+    var mirrorY = axes[1];
+    var mirrorZ = axes[2];
+
+    //get maxs and mins for each axes
+    var xMax, xMin;
+    var yMax, yMin;
+    var zMax, zMin;
+
+    for(var i = 0; i < this.objects.length; i++) {
+      if (typeof this.objects[i]._Xpos === "number") {
+        xMax = this.objects[i]._Xpos;
+        xMin = this.objects[i]._Xpos;
+        yMax = this.objects[i]._Ypos;
+        yMin = this.objects[i]._Ypos;
+        zMax = this.objects[i]._Zpos;
+        zMin = this.objects[i]._Zpos;
+        break;
+      }
+    }
+
+    for(var i = 0; i < this.objects.length; i++) {
+      if (typeof this.objects[i]._Xpos === "number") {
+        xMax = Math.max(xMax, this.objects[i]._Xpos);
+        xMin = Math.min(xMin, this.objects[i]._Xpos);
+
+        yMax = Math.max(yMax, this.objects[i]._Ypos);
+        yMin = Math.min(yMin, this.objects[i]._Ypos);
+
+        zMax = Math.max(zMax, this.objects[i]._Zpos);
+        zMin = Math.min(zMin, this.objects[i]._Zpos);
+      }
+    }
+
+
+
+    //get the relative center
+    if (pivot == null) {
+      pivot = new Point((xMax + xMin) / 2.0,(yMax + yMin) / 2.0,(zMax + zMin) / 2.0);
+    }
+
+    
+
+    if (mirrorX) {
+      for(var i = 0; i < this.objects.length; i++) {
+        if(this.objects[i].isObject()) {
+          //x, y, z, w -> y, x, -w, -z
+          this.objects[i].setQuat(this.objects[i]._Yangle, this.objects[i]._Xangle, -this.objects[i]._Wangle, -this.objects[i]._Zangle);
+          
+          //a special case
+          if (this.objects[i]._height == 0)
+            this.objects[i]._height = 0.000001;
+
+          this.objects[i]._height = -this.objects[i]._height;
+
+          this.objects[i]._Xpos = (pivot.X - this.objects[i]._Xpos) + pivot.X;
+        }
+      }
+    }
+
+    if (mirrorY) {
+      for(var i = 0; i < this.objects.length; i++) {
+        if(this.objects[i].isObject()) {
+          //x, y, z, w -> x, -y, z, -w 
+          this.objects[i].setQuat(this.objects[i]._Xangle, -this.objects[i]._Yangle, this.objects[i]._Zangle, -this.objects[i]._Wangle);
+          
+          //a special case
+          if (this.objects[i]._height == 0)
+            this.objects[i]._height = 0.000001;
+
+          this.objects[i]._height = -this.objects[i]._height;
+
+          this.objects[i]._Ypos = (pivot.Y - this.objects[i]._Ypos) + pivot.Y;
+        }
+      }
+    }
+
+    if (mirrorZ) {
+      for(var i = 0; i < this.objects.length; i++) {
+        if(this.objects[i].isObject()) {
+          //x, y, z, w -> y, x, -w, -z
+          this.objects[i].setQuat(this.objects[i]._Yangle, this.objects[i]._Xangle, -this.objects[i]._Wangle, -this.objects[i]._Zangle);
+          
+          //a special case
+          if (this.objects[i]._length == 0)
+            this.objects[i]._length = 0.000001;
+          if (this.objects[i]._height == 0)
+            this.objects[i]._height = 0.000001;
+          if (this.objects[i]._width == 0)
+            this.objects[i]._width = 0.000001;
+
+          this.objects[i]._length = -this.objects[i]._length;
+          this.objects[i]._height = -this.objects[i]._height;
+          this.objects[i]._width = -this.objects[i]._width;
+
+          this.objects[i]._Zpos = (pivot.Z - this.objects[i]._Zpos) + pivot.Z;
+        }
+      }
+    }
+
+  }
 }
+
+
 
 customMap.prototype.toString = function()
 {

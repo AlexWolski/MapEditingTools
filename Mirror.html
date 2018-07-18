@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<title>Mirror</title>
+		<script src="Clipboard.js"></script>
+		<script src="InputBox.js"></script>
+		<script src="Checkbox.js"></script>
+		<script src="RadioButton.js"></script>
+		<script src="Quaternion.js"></script>
+		<script src="Point.js"></script>
+		<script src="Object.js"></script>
+		<script src="Functions.js"></script>
+	</head>
+
+	<body style="min-width: 850px; margin:0 auto;" onload="fixEdgeBug('AverageRadioButton', 'PointRadioButton'); checkPivot('PointRadioButton', 'Point');">
+		<header style="text-align:center; font-size:60px;">
+			<div style="min-width:850px;">
+				<button class="button" style="position:absolute; left:5px;" onclick="window.location.href='index.html'">Home</button>
+				<div style="width:700px; margin-left:50%; position:relative; right:350px;"><b>Mirror Map</b></div>
+			</div>
+		</header>
+
+		<div class="wrapper" style="margin-top:50px;">
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Mirror:
+			</div>
+
+			<div id="Average" style="margin-top:50px; font-size:25px;">
+				<div class="wrapper">
+					<div style="margin:10px;"> X
+					<input type="checkbox" name="choice" value ="false" id="mirrorX" checked="checked" style="width:20px;">
+					</div>
+				</div>
+				<div class="wrapper">
+					<div style="margin:10px;"> Y
+					<input type="checkbox" name="choice" id="mirrorY" style="width:20px;">
+					</div>
+				</div>
+				<div class="wrapper">
+					<div style="margin:10px;"> Z
+					<input type="checkbox" name="choice" id="mirrorZ" style="width:20px;">
+					</div>
+				</div>
+			</div>
+
+			<div style="margin-top:50px; font-size:25px; margin-left:75px;">
+				Mirror Around:
+			</div>
+
+			<div style="margin-top:50px; font-size:25px;">
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="AverageRadioButton" checked="checked" style="width:20px;" onclick="hideAverage('Point')"> Relative Center
+				</div>
+				<div style="margin:10px;">
+					<input type="radio" name="choice" id="PointRadioButton" style="width:20px;" onclick="showAverage('Point')"> Point
+				</div>
+			</div>
+
+			<div id="Point" style="margin-top:50px; font-size:25px; display:none">
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">X Pos:</div>
+					<input id="pivotX" value="0" maxlength="100" style="margin-left:15px;" onkeypress="return isNumberKey(event)">
+				</div>
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">Y Pos:</div>
+					<input id="pivotY" value="0" maxlength="100" style="margin-left:15px;">
+				</div>
+				<div class="wrapper">
+					<div style="width:85px; margin-left:50px;">Z Pos:</div>
+					<input id="pivotZ" value="0" maxlength="100" style="margin-left:15px;">
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div class="wrapper" style="margin-top:50px;">
+				<div class="inputBox">
+					<div style="text-align:center">
+						<textarea id="Input" placeholder="Map to Mirror" wrap="off" style="width:95%; height:300px"></textarea>
+					</div>
+					<div align="center">
+						<button id="inputCopy" onclick="copy('Input')">Copy</button>
+						<button id="inputClear"  onclick="empty('Input')">Clear</button>
+					</div>
+				</div>
+
+				<div style="width:20%"><button style="width:80%; margin-left:10%; margin-right:10%; padding:15px 0px; font-size:32px;" onclick="mirrorMap('Input', 'Output', 'PointRadioButton', 'mirrorX', 'mirrorY', 'mirrorZ', 'pivotX', 'pivotY', 'pivotZ')">Mirror</button></div>
+
+				<div class="outputBox">
+					<div style="text-align:center">
+						<textarea id="Output" placeholder="Mirrored Map" wrap="off" style="width:95%; height:300px"></textarea>
+					</div>
+					<div align="center">
+						<button id="outputCopy" onclick="copy('Output')">Copy</button>
+						<button id="outputClear" onclick="empty('Output')">Clear</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
