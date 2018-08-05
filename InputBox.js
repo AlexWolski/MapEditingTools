@@ -2,12 +2,31 @@ function isNumberKey(evt)
 {
   var charCode = (evt.which) ? evt.which : evt.keyCode;
   
-  if (charCode != 46 && charCode != 45 && charCode > 31 && (charCode < 48 || charCode > 57))
+  //number keys
+  if (charCode >= 48 && charCode <= 57)
   {
-     return false;
+    return true;
   }
 
-  return true;
+  //these overlap with the arrow keys in ascii
+  if (["%", "&", "'", "("].includes(evt.key))
+  {
+    return false;
+  }
+
+  //arrow keys
+  if (charCode >= 37 && charCode <= 40)
+  {
+    return true;
+  }
+
+  //misc (control, backspace, tab, insert, delete)
+  if (evt.ctrlKey || charCode == 8 || charCode == 9 || charCode == 45 || charCode == 46)
+  {
+    return true;
+  }
+
+  return false;
 }
 
 function getTextboxNumber(textbox)
