@@ -10,13 +10,13 @@ function fixEdgeBug(Default, Other)
 	}
 }
 
-function hideAverage(id)
+function hideMapCenter(id)
 {
   var radioButton = document.getElementById(id);
   radioButton.style.display = "none";
 }
 
-function showAverage(id)
+function showMapCenter(id)
 {
   var radioButton = document.getElementById(id);
   radioButton.style.display = "block";

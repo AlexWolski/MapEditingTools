@@ -14,7 +14,7 @@
 		<script src="Functions.js"></script>
 	</head>
 
-	<body style="min-width: 850px; margin:0 auto;" onload="fixEdgeBug('AverageRadioButton', 'PointRadioButton'); checkPivot('PointRadioButton', 'Point');">
+	<body style="min-width: 850px; margin:0 auto;" onload="fixEdgeBug('MapCenterRadioButton', 'PointRadioButton'); checkPivot('PointRadioButton', 'Point');">
 		<header style="text-align:center; font-size:60px;">
 			<div style="min-width:850px;">
 				<button class="button" style="position:absolute; left:5px;" onclick="window.location.href='index.html'">Home</button>
@@ -27,7 +27,7 @@
 				Rotation:
 			</div>
 
-			<div id="Average" style="margin-top:50px; font-size:25px;">
+			<div id="MapCenter" style="margin-top:50px; font-size:25px;">
 				<div class="wrapper">
 					<div style="width:95px; margin-left:20px;">X Angle:</div>
 					<input id="rotateX" value="0" maxlength="100" style="margin-left:20px;" onkeypress="return isNumberKey(event)">
@@ -48,10 +48,10 @@
 
 			<div style="margin-top:50px; font-size:25px;">
 				<div style="margin:10px;">
-					<input type="radio" name="choice" id="AverageRadioButton" checked="checked" style="width:20px;" onclick="hideAverage('Point')"> Average
+					<input type="radio" name="choice" id="MapCenterRadioButton" checked="checked" style="width:20px;" onclick="hideMapCenter('Point')"> Map Center
 				</div>
 				<div style="margin:10px;">
-					<input type="radio" name="choice" id="PointRadioButton" style="width:20px;" onclick="showAverage('Point')"> Point
+					<input type="radio" name="choice" id="PointRadioButton" style="width:20px;" onclick="showMapCenter('Point')"> Point
 				</div>
 			</div>
 

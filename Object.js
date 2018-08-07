@@ -95,8 +95,8 @@ class object
   }
 
   //class functions \o/
-  isObject() {
-    return this._type != "comment";
+  isComment() {
+    return this._type == "comment";
   }
 
   setSize(length, height, width) {
@@ -189,7 +189,7 @@ class customMap
       {
         this.objects.push(new object(separatedList[i]));
         
-        if(this.objects[this.objects.length - 1]._type == "comment" && separatedList[i + 1] == ";")
+        if(this.objects[this.objects.length - 1].isComment() && separatedList[i + 1] == ";")
         {
           this.objects[this.objects.length - 1]._content = this.objects[this.objects.length - 1]._content.concat(";");
         }
@@ -201,7 +201,7 @@ class customMap
   {
     for(var i = 0; i < this.objects.length; i++)
     {
-      if(this.objects[i]._type != "comment")
+      if (!this.objects[i].isComment())
       {
         this.objects[i]._Xpos += displacement.X;
         this.objects[i]._Ypos += displacement.Y;
@@ -214,26 +214,12 @@ class customMap
   {
     if(pivot == null)
     {
-      pivot = new Point();
-      
-      for(var i = 0; i < this.objects.length; i++)
-      {
-        if(this.objects[i]._type != "comment")
-        {
-          pivot.X += this.objects[i]._Xpos;
-          pivot.Y += this.objects[i]._Ypos;
-          pivot.Z += this.objects[i]._Zpos;
-        }
-      }
-      
-      pivot.X /= this.objects.length;
-      pivot.Y /= this.objects.length;
-      pivot.Z /= this.objects.length;
+      pivot = this.getMapCenter();
     }
     
     for(var i = 0; i < this.objects.length; i++)
     {
-      if(this.objects[i]._type != "comment")
+      if (!this.objects[i].isComment())
       {
         var objectRotation = new quaternion(this.objects[i]._Wangle, this.objects[i]._Xangle, this.objects[i]._Yangle, this.objects[i]._Zangle);
         objectRotation = multiplyQuat(rotation, objectRotation);
@@ -256,27 +242,11 @@ class customMap
   Scale(Scale, center)
   {
     if(center == null)
-    {
-      center = new Point();
-      
-      for(var i = 0; i < this.objects.length; i++)
-      {
-        if(this.objects[i]._type != "comment")
-        {
-          center.X += this.objects[i]._Xpos;
-          center.Y += this.objects[i]._Ypos;
-          center.Z += this.objects[i]._Zpos;
-        }
-      }
-      
-      center.X /= this.objects.length;
-      center.Y /= this.objects.length;
-      center.Z /= this.objects.length;
-    }
+      center = this.getMapCenter();
     
     for(var i = 0; i < this.objects.length; i++)
     {
-      if(this.objects[i]._type != "comment")
+      if (!this.objects[i].isComment())
       {
         this.objects[i]._length *= Scale;
         this.objects[i]._height *= Scale;
@@ -294,48 +264,15 @@ class customMap
     var mirrorY = axes[1];
     var mirrorZ = axes[2];
 
-    //get maxs and mins for each axes
-    var xMax, xMin;
-    var yMax, yMin;
-    var zMax, zMin;
+    if (pivot == null)
+      pivot = this.getMapCenter();
 
-    for(var i = 0; i < this.objects.length; i++) {
-      if (typeof this.objects[i]._Xpos === "number") {
-        xMax = this.objects[i]._Xpos;
-        xMin = this.objects[i]._Xpos;
-        yMax = this.objects[i]._Ypos;
-        yMin = this.objects[i]._Ypos;
-        zMax = this.objects[i]._Zpos;
-        zMin = this.objects[i]._Zpos;
-        break;
-      }
-    }
-
-    for(var i = 0; i < this.objects.length; i++) {
-      if (typeof this.objects[i]._Xpos === "number") {
-        xMax = Math.max(xMax, this.objects[i]._Xpos);
-        xMin = Math.min(xMin, this.objects[i]._Xpos);
-
-        yMax = Math.max(yMax, this.objects[i]._Ypos);
-        yMin = Math.min(yMin, this.objects[i]._Ypos);
-
-        zMax = Math.max(zMax, this.objects[i]._Zpos);
-        zMin = Math.min(zMin, this.objects[i]._Zpos);
-      }
-    }
-
-
-
-    //get the relative center
-    if (pivot == null) {
-      pivot = new Point((xMax + xMin) / 2.0,(yMax + yMin) / 2.0,(zMax + zMin) / 2.0);
-    }
-
-    
-
-    if (mirrorX) {
-      for(var i = 0; i < this.objects.length; i++) {
-        if(this.objects[i].isObject()) {
+    if (mirrorX)
+    {
+      for(var i = 0; i < this.objects.length; i++)
+      {
+        if (!this.objects[i].isComment())
+        {
           //x, y, z, w -> y, x, -w, -z
           this.objects[i].setQuat(this.objects[i]._Yangle, this.objects[i]._Xangle, -this.objects[i]._Wangle, -this.objects[i]._Zangle);
           
@@ -350,9 +287,12 @@ class customMap
       }
     }
 
-    if (mirrorY) {
-      for(var i = 0; i < this.objects.length; i++) {
-        if(this.objects[i].isObject()) {
+    if (mirrorY)
+    {
+      for(var i = 0; i < this.objects.length; i++)
+      {
+        if (!this.objects[i].isComment())
+        {
           //x, y, z, w -> x, -y, z, -w 
           this.objects[i].setQuat(this.objects[i]._Xangle, -this.objects[i]._Yangle, this.objects[i]._Zangle, -this.objects[i]._Wangle);
           
@@ -367,9 +307,12 @@ class customMap
       }
     }
 
-    if (mirrorZ) {
-      for(var i = 0; i < this.objects.length; i++) {
-        if(this.objects[i].isObject()) {
+    if (mirrorZ)
+    {
+      for(var i = 0; i < this.objects.length; i++)
+      {
+        if (!this.objects[i].isComment())
+        {
           //x, y, z, w -> y, x, -w, -z
           this.objects[i].setQuat(this.objects[i]._Yangle, this.objects[i]._Xangle, -this.objects[i]._Wangle, -this.objects[i]._Zangle);
           
@@ -391,6 +334,57 @@ class customMap
     }
 
   }
+
+
+  getMapCenter()
+  {
+
+    var xMax, xMin;
+    var yMax, yMin;
+    var zMax, zMin;
+
+    //Go through every object
+    for(var i = 0; i < this.objects.length; i++)
+    {
+
+      //If the object has a position
+      if (typeof this.objects[i]._Xpos === "number")
+      {
+        //If this is the first object we have some across
+        if (typeof xMax === "undefined")
+        {
+          xMax = this.objects[i]._Xpos;
+          xMin = this.objects[i]._Xpos;
+          yMax = this.objects[i]._Ypos;
+          yMin = this.objects[i]._Ypos;
+          zMax = this.objects[i]._Zpos;
+          zMin = this.objects[i]._Zpos;
+        } else {
+          xMax = Math.max(xMax, this.objects[i]._Xpos);
+          xMin = Math.min(xMin, this.objects[i]._Xpos);
+
+          yMax = Math.max(yMax, this.objects[i]._Ypos);
+          yMin = Math.min(yMin, this.objects[i]._Ypos);
+
+          zMax = Math.max(zMax, this.objects[i]._Zpos);
+          zMin = Math.min(zMin, this.objects[i]._Zpos);
+        }
+      }
+    }
+
+
+
+    //If there were no objects with a position 
+    if (typeof xMax === "undefined")
+      return null;
+
+    return new Point((xMax + xMin) / 2.0,(yMax + yMin) / 2.0,(zMax + zMin) / 2.0);
+  }
+
+
+
+
+
 }
 
 
