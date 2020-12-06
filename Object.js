@@ -6,9 +6,9 @@ class object
 
     this._type = elementList[0];
     this._shape = elementList[1];
-    this._length = elementList.length;
+    this._scriptLength = elementList.length;
     
-    if((this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && this._length >= 19)
+    if((this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && this._scriptLength >= 19)
     {
       this._texture = elementList[2];
       this._length = parseFloat(elementList[3]);
@@ -28,7 +28,7 @@ class object
       this._Zangle = parseFloat(elementList[17]);
       this._Wangle = parseFloat(elementList[18]);
     }
-    else if(this._type == "base" && this._length >= 9)
+    else if(this._type == "base" && this._scriptLength >= 9)
     {
       this._Xpos = parseFloat(elementList[2]);
       this._Ypos = parseFloat(elementList[3]);
@@ -38,7 +38,7 @@ class object
       this._Zangle = parseFloat(elementList[7]);
       this._Wangle = parseFloat(elementList[8]);
     }
-    else if((this._type == "racing" || (this._type == "misc" && this._shape == "barrier")) && this._length >= 12)
+    else if((this._type == "racing" || (this._type == "misc" && this._shape == "barrier")) && this._scriptLength >= 12)
     {
       this._length = parseFloat(elementList[2]);
       this._height = parseFloat(elementList[3]);
@@ -51,7 +51,7 @@ class object
       this._Zangle = parseFloat(elementList[10]);
       this._Wangle = parseFloat(elementList[11]);
     }
-    else if(this._type == "misc" && this._length >= 13)
+    else if(this._type == "misc" && this._scriptLength >= 13)
     {
       this._name = elementList[2];
       this._length = parseFloat(elementList[3]);
@@ -65,7 +65,7 @@ class object
       this._Zangle = parseFloat(elementList[11]);
       this._Wangle = parseFloat(elementList[12]);
     }
-    else if(this._type == "spawnpoint" && this._length >= 9)
+    else if(this._type == "spawnpoint" && this._scriptLength >= 9)
     {
       this._Xpos = parseFloat(elementList[2]);
       this._Ypos = parseFloat(elementList[3]);
@@ -75,7 +75,7 @@ class object
       this._Zangle = parseFloat(elementList[7]);
       this._Wangle = parseFloat(elementList[8]);
     }
-    else if(this._type == "photon" && this._length >= 11)
+    else if(this._type == "photon" && this._scriptLength >= 11)
     {
       this._spawnTime = parseFloat(elementList[2]);
       this._endlessMode = Number(elementList[3]);
@@ -128,8 +128,8 @@ object.prototype.toString = function()
   //I used this regex to change them all cause i'm lazy, i'd recommend altering it if you are undoing this/making changes
   //  find: (this._length|this._height|this._width|this._color|this._red|this._green|this._blue|this._tileX|this._tileY|this._Xpos|this._Ypos|this._Zpos|this._Xangle|this._Yangle|this._Zangle|this._Wangle)
   //  replace: parseFloat($1.toFixed(7))
-  
-  if((this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && this._length >= 19)
+
+  if((this._type == "custom" || this._type == "customb" || this._type == "base" || (this._type == "photon" && this._shape.substring(0,5) != "spawn")) && this._scriptLength >= 19)
   {
     objectScript = objectScript.concat(",", [this._texture, parseFloat(this._length.toFixed(7)), parseFloat(this._height.toFixed(7)), parseFloat(this._width.toFixed(7)), parseFloat(this._color.toFixed(7)), parseFloat(this._red.toFixed(7)), parseFloat(this._green.toFixed(7)), parseFloat(this._blue.toFixed(7)), parseFloat(this._tileX.toFixed(7)), parseFloat(this._tileY.toFixed(7)), parseFloat(this._Xpos.toFixed(7)), parseFloat(this._Ypos.toFixed(7)), parseFloat(this._Zpos.toFixed(7)), parseFloat(this._Xangle.toFixed(7)), parseFloat(this._Yangle.toFixed(7)), parseFloat(this._Zangle.toFixed(7)), parseFloat(this._Wangle.toFixed(7))].join(","));
   }
